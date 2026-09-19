@@ -342,7 +342,7 @@ footer { border-top: 1px solid var(--line); background: #fff; }
   height: 100%;
 
   object-fit: cover;
-  object-position: 58% center;
+  object-position: 38% center;
 
   transform: none;
 }
