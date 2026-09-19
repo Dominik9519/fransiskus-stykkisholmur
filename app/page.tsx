@@ -50,7 +50,10 @@ export default function Home() {
         <div className="hero-veil" />
         <div className="hero-content">
           <p className="eyebrow">Faith <span>·</span> Community <span>·</span> Snæfellsnes</p>
-          <h1>Welcome to Our Parish<br />in Stykkishólmur</h1>
+          <h1>
+  Welcome to Our Parish<br />
+  in Stykkishólmur
+</h1>
           <p className="hero-lead">A living faith, a vibrant community and an open heart<br className="desktop-break" /> by Breiðafjörður.</p>
           <div className="hero-actions">
             <a className="button button-gold" href="/mass-times">
