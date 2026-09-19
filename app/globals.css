@@ -334,17 +334,20 @@ footer { border-top: 1px solid var(--line); background: #fff; }
   align-items: flex-end;
   background: #f7fafc;
 }
-  .hero-image {
+.hero-image {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: -15%;
 
-  width: 100%;
+  width: 130%;
   height: 100%;
 
-  object-fit: cover;
-  object-position: 38% center;
+  max-width: none;
 
-  transform: none;
+  object-fit: cover;
+  object-position: center center;
+
+  transform: none !important;
 }
   .hero-veil {
   position: absolute;
