@@ -31,19 +31,21 @@ export default async function ProtectedAdminLayout({
     redirect('/admin/login')
   }
 
-const { data: aal, error: aalError } =
-  await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
+if (profile.role === 'superadmin') {
+  const { data: aal, error: aalError } =
+    await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
 
-if (aalError || !aal) {
-  redirect('/admin/login')
-}
+  if (aalError || !aal) {
+    redirect('/admin/login')
+  }
 
-if (aal.nextLevel === 'aal1') {
-  redirect('/admin/mfa/setup')
-}
+  if (aal.nextLevel === 'aal1') {
+    redirect('/admin/mfa/setup')
+  }
 
-if (aal.currentLevel !== 'aal2') {
-  redirect('/admin/mfa/verify')
+  if (aal.currentLevel !== 'aal2') {
+    redirect('/admin/mfa/verify')
+  }
 }
 
   return (
