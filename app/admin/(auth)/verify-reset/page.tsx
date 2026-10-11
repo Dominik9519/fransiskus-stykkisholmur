@@ -61,7 +61,20 @@ export default function VerifyResetPage() {
 
         {error && <div className="admin-error">{error}</div>}
 
-        <form onSubmit={handleVerify}>
+<div className="admin-field">
+  <label htmlFor="email">Email</label>
+
+  <input
+    id="email"
+    type="email"
+    autoComplete="email"
+    value={email}
+    onChange={(event) => setEmail(event.target.value)}
+    required
+  />
+</div>       
+
+ <form onSubmit={handleVerify}>
           <div className="admin-field">
             <label htmlFor="code">Verification code</label>
 

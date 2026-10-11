@@ -449,3 +449,84 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+.admin-user-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-user-action {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-user-action-danger {
+  border: 1px solid #efcaca;
+  background: #fff5f5;
+  color: #9a3030;
+}
+
+.admin-user-action-enable {
+  border: 1px solid #bfe1c9;
+  background: #f0faf3;
+  color: #287142;
+}
+
+.admin-user-action:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.admin-user-action-error {
+  color: #9a3030;
+  font-size: .75rem;
+}
+
+@media (max-width: 700px) {
+  .admin-user-details {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.admin-user-action-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-remove-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-user-action-remove {
+  border: 1px solid #e5b8b8;
+  background: #fff;
+  color: #a12626;
+}
+
+.admin-user-action-remove:hover {
+  background: #fff1f1;
+}
+
+@media (max-width: 700px) {
+  .admin-user-action-group {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

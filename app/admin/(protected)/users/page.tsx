@@ -2,6 +2,9 @@ import { redirect } from 'next/navigation'
 import { createClient } from '../../../../lib/supabase/server'
 import { supabaseAdmin } from '../../../../lib/supabase/admin'
 import AddAdministrator from '../../../../components/admin/AddAdministrator'
+import UserStatusButton from '../../../../components/admin/UserStatusButton'
+import RemoveUserButton from '../../../../components/admin/RemoveUserButton'
+import PasswordResetButton from '../../../../components/admin/PasswordResetButton'
 
 export default async function UsersPage() {
   const supabase = await createClient()
@@ -121,14 +124,31 @@ export default async function UsersPage() {
                 </span>
               </div>
 
-              <div className="admin-user-details">
-                <span>
-                  Last sign in:{' '}
-                  {authUser.last_sign_in_at
-                    ? new Date(authUser.last_sign_in_at).toLocaleString()
-                    : 'Never'}
-                </span>
-              </div>
+<div className="admin-user-details">
+  <span>
+    Last sign in:{' '}
+    {authUser.last_sign_in_at
+      ? new Date(authUser.last_sign_in_at).toLocaleString()
+      : 'Never'}
+  </span>
+
+{profile?.role !== 'superadmin' && (
+<div className="admin-user-action-group">
+  <PasswordResetButton userId={authUser.id} />
+
+  <UserStatusButton
+    userId={authUser.id}
+    active={profile?.active ?? false}
+  />
+
+  <RemoveUserButton
+    userId={authUser.id}
+    name={profile?.full_name || authUser.email || 'this administrator'}
+  />
+</div>
+)}
+
+</div>
             </div>
           )
         })}
