@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       data: {
         full_name: fullName,
       },
-      redirectTo: `${request.nextUrl.origin}/auth/callback?next=/admin/onboarding`,
+      redirectTo: `${request.nextUrl.origin}/admin/accept-invite`,
     })
 
   if (error || !data.user) {
