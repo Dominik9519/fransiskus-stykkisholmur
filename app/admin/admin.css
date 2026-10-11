@@ -530,3 +530,81 @@
     flex-direction: column;
   }
 }
+
+.admin-mass-list {
+  margin-top: 20px;
+  display: grid;
+  gap: 12px;
+}
+
+.admin-mass-card {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  border: 1px solid #dfe5e9;
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+
+.admin-mass-day strong,
+.admin-mass-info strong {
+  display: block;
+}
+
+.admin-mass-day span {
+  display: block;
+  margin-top: 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  color: #ad8432;
+}
+
+.admin-mass-info span {
+  display: block;
+  margin-top: 5px;
+  color: #687386;
+  font-size: .86rem;
+}
+
+.admin-mass-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-field select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccd4dc;
+  border-radius: 10px;
+  padding: 13px 14px;
+  background: white;
+  font: inherit;
+}
+
+.admin-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  color: #0b1a3a;
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+.admin-checkbox input {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 800px) {
+  .admin-mass-card {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-mass-status {
+    flex-wrap: wrap;
+  }
+}

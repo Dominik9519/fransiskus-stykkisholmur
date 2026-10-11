@@ -2,8 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { newsItems } from "../data/news";
 import { eventsItems } from "../data/events";
-import { massTimes } from "../data/mass-times";
-
+import { getPublishedMassTimes } from "../lib/data/mass-times"
 import {
   ArrowRight,
   CalendarDays,
@@ -22,7 +21,7 @@ function SectionArrow() {
   return <ArrowRight aria-hidden="true" size={15} strokeWidth={1.8} />;
 }
 
-export default function Home() {
+export default async function Home() {
   const homepageNews = newsItems.find(
     (item) => item.published && item.showOnHomepage
   );
@@ -31,6 +30,7 @@ export default function Home() {
   (item) => item.published && item.showOnHomepage
   );
 
+  const massTimes = await getPublishedMassTimes()
   const homepageMasses = massTimes.flatMap((day) =>
   day.services.map((service) => ({
     day: day.day,

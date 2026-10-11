@@ -1,8 +1,9 @@
 import Header from "@/components/Header"
-import { massTimes } from "@/data/mass-times"
+import { getPublishedMassTimes } from "../../lib/data/mass-times"
 import Footer from "@/components/Footer"
 
-export default function MassTimesPage() {
+export default async function MassTimesPage() {
+  const massTimes = await getPublishedMassTimes()
   return (
     <>
       <Header />
