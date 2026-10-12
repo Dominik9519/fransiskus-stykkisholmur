@@ -1,8 +1,18 @@
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import { liveStream } from "../../data/live"
+import {
+  getLiveStreamSettings,
+  getYouTubeId,
+  formatLiveSchedule,
+} from "../../lib/data/live"
 
-export default function LivePage() {
+export const dynamic = "force-dynamic"
+
+export default async function LivePage() {
+  const liveStream = await getLiveStreamSettings()
+  const youtubeId = getYouTubeId(liveStream.youtube_url)
+  const scheduled = formatLiveSchedule(liveStream.scheduled_at)
+
   return (
     <>
       <Header />
@@ -20,39 +30,48 @@ export default function LivePage() {
           <div className="live-card">
             <h2>{liveStream.title}</h2>
 
-{liveStream.active ? (
-  <>
-    <div className="live-player">
-      <iframe
-        src={`https://www.youtube.com/embed/${liveStream.youtubeId}`}
-        title={liveStream.title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    </div>
+            {liveStream.live_now && youtubeId ? (
+              <>
+                <div className="live-player">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+                    title={liveStream.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
 
-    <a
-      className="button button-gold live-fullscreen-button"
-      href={`https://www.youtube.com/watch?v=${liveStream.youtubeId}`}
-      target="_blank"
-      rel="noreferrer"
-    >
-      Open on YouTube
-    </a>
-  </>
-) : (
-  <div className="live-offline-box">
-    <h2>There is no live Mass at the moment</h2>
+                <a
+                  className="button button-gold live-fullscreen-button"
+                  href={liveStream.youtube_url || "#"}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open on YouTube
+                </a>
+              </>
+            ) : (
+              <div className="live-offline-box">
+                <h2>There is no live Mass at the moment</h2>
 
-    <p>
-      Please check the Mass Times page for the next celebration.
-    </p>
+                {scheduled ? (
+                  <p>
+                    Next scheduled broadcast: <strong>{scheduled}</strong>
+                  </p>
+                ) : (
+                  <p>
+                    Please check the Mass Times page for the next celebration.
+                  </p>
+                )}
 
-    <a className="button button-outline" href="/mass-times">
-      View Mass Times
-    </a>
-  </div>
-)}
+                <a
+                  className="button button-outline"
+                  href="/mass-times"
+                >
+                  View Mass Times
+                </a>
+              </div>
+            )}
           </div>
         </section>
       </main>

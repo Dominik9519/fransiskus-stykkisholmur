@@ -10,6 +10,10 @@ import {
 } from "../lib/data/events";
 import { getPublishedMassTimes } from "../lib/data/mass-times";
 import {
+  getLiveStreamSettings,
+  formatLiveSchedule,
+} from "../lib/data/live";
+import {
   ArrowRight,
   CalendarDays,
   Play,
@@ -25,6 +29,8 @@ export default async function Home() {
 const massTimes = await getPublishedMassTimes()
   const homepageNews = await getHomepageNews()
   const homepageEvents = await getHomepageEvents()
+  const liveStream = await getLiveStreamSettings()
+  const liveScheduled = formatLiveSchedule(liveStream.scheduled_at)
   const homepageMasses = massTimes.flatMap((day) =>
   day.services.map((service) => ({
     day: day.day,
@@ -53,7 +59,7 @@ const massTimes = await getPublishedMassTimes()
             <a className="button button-gold" href="/mass-times">
   View Mass Times
 </a>
-            <a className="button button-outline" href="#utsending"><Play size={15} fill="currentColor" /> Live stream</a>
+            <a className="button button-outline" href="/live"><Play size={15} fill="currentColor" /> Live stream</a>
           </div>
         </div>
       </section>
@@ -164,11 +170,40 @@ const massTimes = await getPublishedMassTimes()
 </article>
 
         <article className="info-card live-card" id="utsending">
-          <div className="card-heading"><h2><span className="live-dot" /> Live stream</h2></div>
-          <a className="video-poster" href="#watch-live" aria-label="Watch the live stream">
-            <span className="poster-cross" aria-hidden="true">✝</span><span className="play-button"><Play size={20} fill="currentColor" /></span><span className="poster-glow" />
+          <div className="card-heading">
+            <h2>
+              {liveStream.live_now && <span className="live-dot" />}
+              Live stream
+            </h2>
+
+            <a href="/live">
+              Watch <SectionArrow />
+            </a>
+          </div>
+
+          <a
+            className="video-poster"
+            href="/live"
+            aria-label="Watch the live stream"
+          >
+            <span className="poster-cross" aria-hidden="true">✝</span>
+            <span className="play-button">
+              <Play size={20} fill="currentColor" />
+            </span>
+            <span className="poster-glow" />
           </a>
-          <h3>Live from the chapel</h3><p>Watch Masses and parish events live.</p>
+
+          <h3>
+            {liveStream.live_now ? "Live now" : liveStream.title}
+          </h3>
+
+          <p>
+            {liveStream.live_now
+              ? liveStream.description
+              : liveScheduled
+                ? `Next broadcast: ${liveScheduled}`
+                : liveStream.description}
+          </p>
         </article>
       </section>
 
