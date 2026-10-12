@@ -705,3 +705,16 @@
   border-radius: 10px;
   margin-bottom: 10px;
 }
+.admin-news-card:has(.admin-news-thumbnail) {
+  grid-template-columns: 90px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+}
+
+.admin-news-main {
+  min-width: 0;
+}
+
+.admin-news-actions {
+  justify-self: end;
+}

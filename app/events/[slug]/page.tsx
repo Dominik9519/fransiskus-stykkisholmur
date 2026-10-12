@@ -1,7 +1,13 @@
 import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
-import { eventsItems } from "../../../data/events"
+import {
+  getPublishedEventBySlug,
+  formatEventDate,
+  formatEventTime,
+} from "../../../lib/data/events"
 import { notFound } from "next/navigation"
+
+export const dynamic = "force-dynamic"
 
 export default async function EventPage({
   params,
@@ -10,13 +16,16 @@ export default async function EventPage({
 }) {
   const { slug } = await params
 
-  const event = eventsItems.find(
-    (item) => item.slug === slug && item.published
-  )
+  const event = await getPublishedEventBySlug(slug)
 
   if (!event) {
     notFound()
   }
+
+  const paragraphs = (event.content || "")
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean)
 
   return (
     <>
@@ -24,22 +33,35 @@ export default async function EventPage({
 
       <main className="event-article-page">
         <article className="event-article">
-          <p className="eyebrow">{event.type}</p>
+          <p className="eyebrow">
+            {event.type || "Parish event"}
+          </p>
 
           <h1>{event.title}</h1>
 
           <div className="event-meta">
-            <span>{event.date}</span>
-            <span>{event.time}</span>
-            <span>{event.location}</span>
+            <span>{formatEventDate(event.event_date)}</span>
+
+            {event.event_time && (
+              <span>{formatEventTime(event.event_time)}</span>
+            )}
+
+            {event.location && (
+              <span>{event.location}</span>
+            )}
           </div>
 
-          <div className="event-article-image">
-            <img src={event.image} alt={event.title} />
-          </div>
+          {event.image_url && (
+            <div className="event-article-image">
+              <img
+                src={event.image_url}
+                alt={event.title}
+              />
+            </div>
+          )}
 
           <div className="event-article-body">
-            {event.content.map((paragraph, index) => (
+            {paragraphs.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
           </div>

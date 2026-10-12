@@ -4,7 +4,10 @@ import {
   getHomepageNews,
   formatNewsDate,
 } from "../lib/data/news";
-import { eventsItems } from "../data/events";
+import {
+  getHomepageEvents,
+  formatEventDate,
+} from "../lib/data/events";
 import { getPublishedMassTimes } from "../lib/data/mass-times";
 import {
   ArrowRight,
@@ -19,14 +22,9 @@ function SectionArrow() {
 }
 
 export default async function Home() {
-  
-
-  const homepageEvents = eventsItems.filter(
-  (item) => item.published && item.showOnHomepage
-  );
-
-  const massTimes = await getPublishedMassTimes()
+const massTimes = await getPublishedMassTimes()
   const homepageNews = await getHomepageNews()
+  const homepageEvents = await getHomepageEvents()
   const homepageMasses = massTimes.flatMap((day) =>
   day.services.map((service) => ({
     day: day.day,
@@ -150,7 +148,7 @@ export default async function Home() {
         key={event.slug}
         href={`/events/${event.slug}`}
       >
-        <strong>{event.date}</strong>
+        <strong>{formatEventDate(event.event_date)}</strong>
 
         <span>
           {event.title}

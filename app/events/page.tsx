@@ -1,9 +1,15 @@
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import { eventsItems } from "../../data/events"
+import {
+  getPublishedEvents,
+  formatEventDate,
+  formatEventTime,
+} from "../../lib/data/events"
 
-export default function EventsPage() {
-  const publishedEvents = eventsItems.filter((item) => item.published)
+export const dynamic = "force-dynamic"
+
+export default async function EventsPage() {
+  const publishedEvents = await getPublishedEvents()
 
   return (
     <>
@@ -26,21 +32,35 @@ export default function EventsPage() {
             {publishedEvents.map((item) => (
               <article className="events-list-card" key={item.slug}>
                 <a href={`/events/${item.slug}`}>
-                  <div className="events-list-image">
-                    <img src={item.image} alt={item.title} />
-                  </div>
+                  {item.image_url && (
+                    <div className="events-list-image">
+                      <img
+                        src={item.image_url}
+                        alt={item.title}
+                      />
+                    </div>
+                  )}
 
                   <div className="events-list-content">
-                    <p className="events-type">{item.type}</p>
+                    <p className="events-type">
+                      {item.type || "Event"}
+                    </p>
+
                     <h2>{item.title}</h2>
 
                     <div className="events-meta">
-                      <span>{item.date}</span>
-                      <span>{item.time}</span>
-                      <span>{item.location}</span>
+                      <span>{formatEventDate(item.event_date)}</span>
+
+                      {item.event_time && (
+                        <span>{formatEventTime(item.event_time)}</span>
+                      )}
+
+                      {item.location && (
+                        <span>{item.location}</span>
+                      )}
                     </div>
 
-                    <p>{item.excerpt}</p>
+                    {item.excerpt && <p>{item.excerpt}</p>}
 
                     <span className="events-read-more">
                       View event →
