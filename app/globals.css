@@ -1434,3 +1434,275 @@ footer { border-top: 1px solid var(--line); background: #fff; }
     padding: 35px 20px 60px;
   }
 }
+/* =========================================================
+   LARGE DESKTOP — 1440px+
+   Homepage only / does not affect tablet or mobile
+   ========================================================= */
+
+@media (min-width: 1440px) {
+
+  /* HERO */
+
+  .hero {
+    min-height: 560px;
+  }
+
+  .hero-content {
+    max-width: 1500px;
+    padding: 82px 64px 72px;
+  }
+
+  .hero h1 {
+    max-width: 760px;
+    font-size: clamp(3.6rem, 4vw, 4.8rem);
+    line-height: .98;
+    letter-spacing: -.045em;
+  }
+
+  .hero-lead {
+    margin-top: 20px;
+    margin-bottom: 26px;
+    font-size: 1.15rem;
+    line-height: 1.45;
+  }
+
+  .hero .eyebrow {
+    margin-bottom: 17px;
+    font-size: .72rem;
+  }
+
+  .hero-actions {
+    gap: 15px;
+  }
+
+  .hero .button {
+    min-height: 48px;
+    padding: 0 26px;
+    font-size: .84rem;
+  }
+
+  .hero-image {
+    right: -4%;
+    top: -10%;
+    height: 158%;
+  }
+
+  .hero-veil {
+    background: linear-gradient(
+      90deg,
+      rgba(247, 250, 252, 1) 0%,
+      rgba(247, 250, 252, 1) 28%,
+      rgba(247, 250, 252, .86) 36%,
+      rgba(247, 250, 252, .48) 47%,
+      rgba(247, 250, 252, .22) 61%,
+      rgba(247, 250, 252, .09) 78%,
+      rgba(247, 250, 252, 0) 100%
+    );
+  }
+
+
+  /* FOUR MAIN CARDS */
+
+  .content-grid {
+    max-width: 1500px;
+    padding: 26px 64px 30px;
+    gap: 18px;
+  }
+
+  .info-card {
+    min-height: 340px;
+    padding: 27px 28px;
+  }
+
+  .card-heading {
+    min-height: 30px;
+    margin-bottom: 18px;
+  }
+
+  .card-heading h2 {
+    gap: 10px;
+    font-size: 1.12rem;
+  }
+
+  .card-heading > a,
+  .inline-link {
+    font-size: .8rem;
+  }
+
+
+  /* MASS TIMES */
+
+  .mass-row {
+    min-height: 65px;
+    gap: 12px;
+    font-size: .82rem;
+  }
+
+  .mass-row strong {
+    font-size: .84rem;
+  }
+
+
+  /* NEWS */
+
+  .news-photo-wrap {
+    height: 165px;
+  }
+
+  .info-card h3 {
+    margin-top: 15px;
+    margin-bottom: 7px;
+    font-size: 1.05rem;
+  }
+
+  .info-card > p {
+    font-size: .82rem;
+    line-height: 1.5;
+  }
+
+
+  /* EVENTS */
+
+  .event-row {
+    grid-template-columns: 74px 1fr;
+    gap: 12px;
+    padding: 15px 0;
+  }
+
+  .event-row > strong {
+    font-size: .8rem;
+  }
+
+  .event-row > span {
+    font-size: .84rem;
+  }
+
+
+  /* LIVE */
+
+  .video-poster {
+    height: 168px;
+  }
+
+  .poster-cross {
+    right: 35px;
+    top: 18px;
+    font-size: 6rem;
+  }
+
+  .play-button {
+    width: 48px;
+    height: 48px;
+  }
+
+
+  /* PANORAMA + QUOTE */
+
+  .quote-band {
+    width: calc(100% - 128px);
+    max-width: 1500px;
+    height: 260px;
+    margin: 10px auto 36px;
+    grid-template-columns: 68% 32%;
+  }
+
+  .quote-band > img {
+    height: 260px;
+    object-position: center 58%;
+  }
+
+  .quote-panel {
+    padding: 34px 40px;
+  }
+
+  .quote-panel blockquote {
+    font-size: 1.7rem;
+  }
+
+  .quote-panel p {
+    margin-top: 16px;
+    font-size: .7rem;
+  }
+
+
+  /* FOOTER */
+
+  .footer-main {
+    max-width: 1500px;
+    min-height: 96px;
+    padding: 18px 64px;
+    gap: 34px;
+  }
+
+  .footer-main > a {
+    font-size: .8rem;
+  }
+}
+
+
+/* Extra large monitors: 1800px+ */
+
+@media (min-width: 1800px) {
+
+  .hero {
+    min-height: 620px;
+  }
+
+  .hero-content {
+    max-width: 1640px;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 96px;
+  }
+
+  .hero h1 {
+    max-width: 820px;
+    font-size: 5rem;
+  }
+
+  .hero-lead {
+    font-size: 1.2rem;
+  }
+
+  .hero-image {
+    right: 0;
+    height: 160%;
+  }
+
+  .content-grid {
+    max-width: 1640px;
+    padding-left: 80px;
+    padding-right: 80px;
+    gap: 22px;
+  }
+
+  .info-card {
+    min-height: 365px;
+    padding: 30px 32px;
+  }
+
+  .news-photo-wrap {
+    height: 180px;
+  }
+
+  .video-poster {
+    height: 180px;
+  }
+
+  .quote-band {
+    width: calc(100% - 160px);
+    max-width: 1640px;
+    height: 290px;
+  }
+
+  .quote-band > img {
+    height: 290px;
+  }
+
+  .footer-main {
+    max-width: 1640px;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
