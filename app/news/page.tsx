@@ -1,9 +1,14 @@
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import { newsItems } from "../../data/news"
+import {
+  getPublishedNews,
+  formatNewsDate,
+} from "../../lib/data/news"
 
-export default function NewsPage() {
-  const publishedNews = newsItems.filter((item) => item.published)
+export const dynamic = "force-dynamic"
+
+export default async function NewsPage() {
+  const publishedNews = await getPublishedNews()
 
   return (
     <>
@@ -27,14 +32,24 @@ export default function NewsPage() {
               <article className="news-list-card" key={item.slug}>
                 <a href={`/news/${item.slug}`}>
                   <div className="news-list-image">
-                    <img src={item.image} alt="" />
+                    {item.image_url ? (
+                      <img src={item.image_url} alt="" />
+                    ) : (
+                      <div className="news-image-placeholder" />
+                    )}
                   </div>
 
                   <div className="news-list-content">
-                    <p className="news-date">{item.date}</p>
+                    <p className="news-date">
+                      {formatNewsDate(item.published_at)}
+                    </p>
+
                     <h2>{item.title}</h2>
                     <p>{item.excerpt}</p>
-                    <span className="news-read-more">Read more →</span>
+
+                    <span className="news-read-more">
+                      Read more →
+                    </span>
                   </div>
                 </a>
               </article>

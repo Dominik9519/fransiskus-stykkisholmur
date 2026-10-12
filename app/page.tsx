@@ -1,18 +1,15 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { newsItems } from "../data/news";
+import {
+  getHomepageNews,
+  formatNewsDate,
+} from "../lib/data/news";
 import { eventsItems } from "../data/events";
-import { getPublishedMassTimes } from "../lib/data/mass-times"
+import { getPublishedMassTimes } from "../lib/data/mass-times";
 import {
   ArrowRight,
   CalendarDays,
-  Clock3,
-  Mail,
-  MapPin,
-  Menu,
   Play,
-  Search,
-  X,
 } from "lucide-react";
 
 
@@ -22,15 +19,14 @@ function SectionArrow() {
 }
 
 export default async function Home() {
-  const homepageNews = newsItems.find(
-    (item) => item.published && item.showOnHomepage
-  );
+  
 
   const homepageEvents = eventsItems.filter(
   (item) => item.published && item.showOnHomepage
   );
 
   const massTimes = await getPublishedMassTimes()
+  const homepageNews = await getHomepageNews()
   const homepageMasses = massTimes.flatMap((day) =>
   day.services.map((service) => ({
     day: day.day,
@@ -118,19 +114,21 @@ export default async function Home() {
     </a>
   </div>
 
-  {homepageNews && (
-    <a href={`/news/${homepageNews.slug}`}>
+ {homepageNews && (
+  <a href={`/news/${homepageNews.slug}`}>
+    {homepageNews.image_url && (
       <div className="news-photo-wrap">
         <img
-          src={homepageNews.image}
+          src={homepageNews.image_url}
           alt={homepageNews.title}
         />
       </div>
+    )}
 
-      <h3>{homepageNews.title}</h3>
-      <p>{homepageNews.date}</p>
-    </a>
-  )}
+    <h3>{homepageNews.title}</h3>
+    <p>{formatNewsDate(homepageNews.published_at)}</p>
+  </a>
+)}
 </article>
 
         <article className="info-card events-card" id="vidburdir">
