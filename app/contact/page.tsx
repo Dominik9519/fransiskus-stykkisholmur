@@ -1,9 +1,15 @@
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import { contactInfo } from "../../data/contact"
+import { getContactSettings } from "../../lib/data/contact"
 import { Mail, MapPin, Phone } from "lucide-react"
 
-export default function ContactPage() {
+export const dynamic = "force-dynamic"
+
+export default async function ContactPage() {
+  const contactInfo = await getContactSettings()
+
+  const phoneLink = contactInfo.phone.replace(/[^\d+]/g, "")
+
   return (
     <>
       <Header />
@@ -14,7 +20,7 @@ export default function ContactPage() {
             <p className="eyebrow">Get in touch</p>
             <h1>Contact</h1>
             <p>
-              Contact St. Francis of Assisi Parish in Stykkishólmur.
+              Contact {contactInfo.parish_name} Parish in Stykkishólmur.
             </p>
           </div>
         </section>
@@ -29,16 +35,18 @@ export default function ContactPage() {
               <p>
                 {contactInfo.address}
                 <br />
-                {contactInfo.postalCode}
+                {contactInfo.postal_code}
               </p>
 
-              <a
-                href="https://maps.google.com/?q=Austurgata+7,+340+Stykkisholmur"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open in Google Maps →
-              </a>
+              {contactInfo.maps_url && (
+                <a
+                  href={contactInfo.maps_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open in Google Maps →
+                </a>
+              )}
             </div>
 
             <div className="contact-card">
@@ -52,7 +60,7 @@ export default function ContactPage() {
                 {contactInfo.phone}
               </p>
 
-              <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}>
+              <a href={`tel:${phoneLink}`}>
                 Call →
               </a>
             </div>

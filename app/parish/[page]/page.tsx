@@ -1,9 +1,9 @@
 import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
-import { parishPages } from "../../../data/parish"
+import { getPublishedParishPage } from "../../../lib/data/parish-pages"
 import { notFound } from "next/navigation"
 
-type ParishPageKey = keyof typeof parishPages
+export const dynamic = "force-dynamic"
 
 export default async function ParishPage({
   params,
@@ -12,11 +12,11 @@ export default async function ParishPage({
 }) {
   const { page } = await params
 
-  if (!(page in parishPages)) {
+  const content = await getPublishedParishPage(page)
+
+  if (!content) {
     notFound()
   }
-
-  const content = parishPages[page as ParishPageKey]
 
   return (
     <>
@@ -25,15 +25,26 @@ export default async function ParishPage({
       <main className="parish-page">
         <section className="parish-hero">
           <div className="parish-hero-inner">
-            <p className="eyebrow">{content.eyebrow}</p>
+            {content.eyebrow && (
+              <p className="eyebrow">
+                {content.eyebrow}
+              </p>
+            )}
+
             <h1>{content.title}</h1>
-            <p>{content.intro}</p>
+
+            {content.intro && (
+              <p>{content.intro}</p>
+            )}
           </div>
         </section>
 
         <section className="parish-content">
-          {content.sections.map((section, index) => (
-            <article className="parish-section" key={index}>
+          {content.sections.map((section) => (
+            <article
+              className="parish-section"
+              key={section.id}
+            >
               <h2>{section.heading}</h2>
               <p>{section.text}</p>
             </article>
