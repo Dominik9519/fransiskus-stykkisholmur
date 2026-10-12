@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Search, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 function SectionArrow() {
   return <span aria-hidden="true">→</span>
@@ -8,10 +8,6 @@ function SectionArrow() {
 export default function Header() {
   return (
     <header className="site-header">
-      <div className="topline">
-        <a href="#contact">Contact</a>
-      </div>
-
       <div className="nav-shell">
         <a className="logo-link" href="/">
           <span className="brand">
@@ -55,14 +51,6 @@ export default function Header() {
           <a href="/gallery">Gallery</a>
           <a href="/contact">Contact</a>
         </nav>
-
-        <button
-          className="search-button"
-          type="button"
-          aria-label="Search"
-        >
-          <Search size={18} />
-        </button>
 
         <details className="mobile-menu">
           <summary aria-label="Open menu">
