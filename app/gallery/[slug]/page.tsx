@@ -1,7 +1,13 @@
 import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
-import { galleryAlbums } from "../../../data/gallery"
+import GalleryLightbox from "../../../components/GalleryLightbox"
+import {
+  getPublishedGalleryAlbumBySlug,
+  formatGalleryDate,
+} from "../../../lib/data/gallery"
 import { notFound } from "next/navigation"
+
+export const dynamic = "force-dynamic"
 
 export default async function GalleryAlbumPage({
   params,
@@ -10,9 +16,7 @@ export default async function GalleryAlbumPage({
 }) {
   const { slug } = await params
 
-  const album = galleryAlbums.find(
-    (item) => item.slug === slug && item.published
-  )
+  const album = await getPublishedGalleryAlbumBySlug(slug)
 
   if (!album) {
     notFound()
@@ -24,23 +28,22 @@ export default async function GalleryAlbumPage({
 
       <main className="gallery-album-page">
         <section className="gallery-album-header">
-          <p className="eyebrow">{album.date}</p>
+          <p className="eyebrow">
+            {formatGalleryDate(album.album_date)}
+          </p>
+
           <h1>{album.title}</h1>
         </section>
 
-        <section className="gallery-photos">
-          {album.photos.map((photo, index) => (
-            <div className="gallery-photo" key={`${photo}-${index}`}>
-              <img
-                src={photo}
-                alt={`${album.title} photo ${index + 1}`}
-              />
-            </div>
-          ))}
-        </section>
+        <GalleryLightbox
+          photos={album.photos}
+          title={album.title}
+        />
 
         <div className="gallery-back">
-          <a href="/gallery">← Back to Gallery</a>
+          <a href="/gallery">
+            ← Back to Gallery
+          </a>
         </div>
       </main>
 

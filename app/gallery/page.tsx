@@ -1,9 +1,14 @@
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import { galleryAlbums } from "../../data/gallery"
+import {
+  getPublishedGalleryAlbums,
+  formatGalleryDate,
+} from "../../lib/data/gallery"
 
-export default function GalleryPage() {
-  const albums = galleryAlbums.filter((album) => album.published)
+export const dynamic = "force-dynamic"
+
+export default async function GalleryPage() {
+  const albums = await getPublishedGalleryAlbums()
 
   return (
     <>
@@ -29,14 +34,26 @@ export default function GalleryPage() {
                 href={`/gallery/${album.slug}`}
                 key={album.slug}
               >
-                <div className="gallery-cover">
-                  <img src={album.cover} alt={album.title} />
-                </div>
+                {album.cover_image_url && (
+                  <div className="gallery-cover">
+                    <img
+                      src={album.cover_image_url}
+                      alt={album.title}
+                    />
+                  </div>
+                )}
 
                 <div className="gallery-card-content">
-                  <p>{album.date}</p>
+                  <p>{formatGalleryDate(album.album_date)}</p>
                   <h2>{album.title}</h2>
-                  <span>{album.photos.length} photos →</span>
+
+                  <span>
+                    {album.gallery_photos.length}{" "}
+                    {album.gallery_photos.length === 1
+                      ? "photo"
+                      : "photos"}{" "}
+                    →
+                  </span>
                 </div>
               </a>
             ))}
