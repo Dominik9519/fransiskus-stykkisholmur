@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import {
@@ -5,6 +6,15 @@ import {
   getYouTubeId,
   formatLiveSchedule,
 } from "../../lib/data/live"
+
+export const metadata: Metadata = {
+  title: "Live Stream",
+  description:
+    "Watch Holy Mass and parish broadcasts live from St. Francis of Assisi Parish in Stykkishólmur.",
+  alternates: {
+    canonical: "/live",
+  },
+}
 
 export const dynamic = "force-dynamic"
 

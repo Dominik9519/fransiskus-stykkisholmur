@@ -1,7 +1,17 @@
+import type { Metadata } from "next"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import { getContactSettings } from "../../lib/data/contact"
 import { Mail, MapPin, Phone } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Contact St. Francis of Assisi Parish in Stykkishólmur. Find our address, phone number, email and parish priest information.",
+  alternates: {
+    canonical: "/contact",
+  },
+}
 
 export const dynamic = "force-dynamic"
 

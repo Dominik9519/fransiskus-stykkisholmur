@@ -1,9 +1,50 @@
+import type { Metadata } from "next"
 import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
 import { getPublishedParishPage } from "../../../lib/data/parish-pages"
 import { notFound } from "next/navigation"
 
 export const dynamic = "force-dynamic"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ page: string }>
+}): Promise<Metadata> {
+  const { page } = await params
+
+  const content = await getPublishedParishPage(page)
+
+  if (!content) {
+    return {
+      title: "Parish",
+    }
+  }
+
+  const canonical = `https://stfrancis.is/parish/${content.slug}`
+
+  return {
+    title: content.title,
+    description: content.intro || undefined,
+
+    alternates: {
+      canonical,
+    },
+
+    openGraph: {
+      type: "website",
+      url: canonical,
+      title: content.title,
+      description: content.intro || undefined,
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: content.title,
+      description: content.intro || undefined,
+    },
+  }
+}
 
 export default async function ParishPage({
   params,

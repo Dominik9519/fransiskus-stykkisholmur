@@ -1,9 +1,19 @@
+import type { Metadata } from "next"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import {
   getPublishedGalleryAlbums,
   formatGalleryDate,
 } from "../../lib/data/gallery"
+
+export const metadata: Metadata = {
+  title: "Gallery",
+  description:
+    "Photos from parish life, celebrations and community events at St. Francis of Assisi Parish in Stykkishólmur.",
+  alternates: {
+    canonical: "/gallery",
+  },
+}
 
 export const dynamic = "force-dynamic"
 

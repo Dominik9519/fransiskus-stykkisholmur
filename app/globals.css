@@ -1706,3 +1706,19 @@ footer { border-top: 1px solid var(--line); background: #fff; }
   }
 }
 
+
+/* Accessibility contrast improvements */
+
+.brand-text small {
+  color: #626b7d;
+}
+
+.card-heading > a,
+.inline-link {
+  color: #7a5a1c;
+}
+
+.live-card > p {
+  color: #626b7d;
+}
+

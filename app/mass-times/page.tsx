@@ -1,6 +1,16 @@
+import type { Metadata } from "next"
 import Header from "@/components/Header"
 import { getPublishedMassTimes } from "../../lib/data/mass-times"
 import Footer from "@/components/Footer"
+
+export const metadata: Metadata = {
+  title: "Mass Times",
+  description:
+    "Current Mass times and liturgy schedule for St. Francis of Assisi Parish in Stykkishólmur, Iceland.",
+  alternates: {
+    canonical: "/mass-times",
+  },
+}
 
 export default async function MassTimesPage() {
   const massTimes = await getPublishedMassTimes()

@@ -1,3 +1,5 @@
+import Image from "next/image";
+import heroImage from "../public/fransiskus-hero-v4.webp";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import {
@@ -9,6 +11,7 @@ import {
   formatEventDate,
 } from "../lib/data/events";
 import { getPublishedMassTimes } from "../lib/data/mass-times";
+import { getContactSettings } from "../lib/data/contact";
 import {
   getLiveStreamSettings,
   formatLiveSchedule,
@@ -30,6 +33,7 @@ const massTimes = await getPublishedMassTimes()
   const homepageNews = await getHomepageNews()
   const homepageEvents = await getHomepageEvents()
   const liveStream = await getLiveStreamSettings()
+  const contactInfo = await getContactSettings()
   const liveScheduled = formatLiveSchedule(liveStream.scheduled_at)
   const homepageMasses = massTimes.flatMap((day) =>
   day.services.map((service) => ({
@@ -38,15 +42,52 @@ const massTimes = await getPublishedMassTimes()
   }))
 );
 
+  const parishJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Church",
+    name: contactInfo.parish_name,
+    url: "https://stfrancis.is",
+    logo: "https://stfrancis.is/fransiskus-logo.webp",
+    image: "https://stfrancis.is/fransiskus-hero-v4.webp",
+    description:
+      "St. Francis of Assisi Catholic Parish in Stykkishólmur, Iceland.",
+    telephone: contactInfo.phone,
+    email: contactInfo.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: contactInfo.address,
+      postalCode: "340",
+      addressLocality: "Stykkishólmur",
+      addressCountry: "IS",
+    },
+    sameAs: contactInfo.facebook_url
+      ? [contactInfo.facebook_url]
+      : [],
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(parishJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <Header />
 
       <main>
 
 
       <section className="hero" id="heim">
-        <img className="hero-image" src="/fransiskus-hero-v4.webp" alt="Church of Saint Francis of Assisi in Stykkishólmur" />
+        <Image
+          className="hero-image"
+          src={heroImage}
+          alt="Church of Saint Francis of Assisi in Stykkishólmur"
+          preload
+          placeholder="blur"
+          sizes="100vw"
+        />
         <div className="hero-veil" />
         <div className="hero-content">
           <p className="eyebrow">Faith <span>·</span> Community <span>·</span> Snæfellsnes</p>

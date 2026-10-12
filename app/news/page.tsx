@@ -1,9 +1,19 @@
+import type { Metadata } from "next"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import {
   getPublishedNews,
   formatNewsDate,
 } from "../../lib/data/news"
+
+export const metadata: Metadata = {
+  title: "News",
+  description:
+    "Latest parish news and announcements from St. Francis of Assisi Parish in Stykkishólmur, Iceland.",
+  alternates: {
+    canonical: "/news",
+  },
+}
 
 export const dynamic = "force-dynamic"
 

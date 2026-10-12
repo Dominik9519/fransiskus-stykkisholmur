@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import {
@@ -5,6 +6,15 @@ import {
   formatEventDate,
   formatEventTime,
 } from "../../lib/data/events"
+
+export const metadata: Metadata = {
+  title: "Events",
+  description:
+    "Upcoming parish events, celebrations and community gatherings at St. Francis of Assisi Parish in Stykkishólmur.",
+  alternates: {
+    canonical: "/events",
+  },
+}
 
 export const dynamic = "force-dynamic"
 

@@ -6,7 +6,7 @@ export default function Mark({
   return (
     <div
       className={`brand${compact ? " brand-compact" : ""}`}
-      aria-label="Catholic Parish of Saint Francis of Assisi, Stykkishólmur"
+     
     >
       <img
         className="brand-logo"
