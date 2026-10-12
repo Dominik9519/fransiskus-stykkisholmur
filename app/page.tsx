@@ -84,7 +84,9 @@ const massTimes = await getPublishedMassTimes()
           className="hero-image"
           src={heroImage}
           alt="Church of Saint Francis of Assisi in Stykkishólmur"
-          preload
+          fetchPriority="high"
+          loading="eager"
+          quality={60}
           placeholder="blur"
           sizes="100vw"
         />

@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Search, Menu, X } from "lucide-react"
 
 function SectionArrow() {
@@ -14,9 +15,12 @@ export default function Header() {
       <div className="nav-shell">
         <a className="logo-link" href="/">
           <span className="brand">
-            <img
+            <Image
               className="brand-logo"
               src="/fransiskus-logo.webp"
+              width={60}
+              height={60}
+              sizes="60px"
               alt="St. Francis of Assisi"
             />
 
