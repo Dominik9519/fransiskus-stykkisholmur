@@ -1,4 +1,4 @@
-import { createClient } from '../supabase/server'
+import { createPublicClient } from '../supabase/public'
 
 export type LiveStreamSettings = {
   id: number
@@ -10,7 +10,7 @@ export type LiveStreamSettings = {
 }
 
 export async function getLiveStreamSettings(): Promise<LiveStreamSettings> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('live_stream_settings')

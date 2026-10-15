@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { unstable_cache } from "next/cache";
 import heroImage from "../public/fransiskus-hero-v4.webp";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -28,6 +29,22 @@ function SectionArrow() {
   return <ArrowRight aria-hidden="true" size={15} strokeWidth={1.8} />;
 }
 
+const getHomepageData = unstable_cache(
+  async () =>
+    Promise.all([
+      getPublishedMassTimes(),
+      getHomepageNews(),
+      getHomepageEvents(),
+      getLiveStreamSettings(),
+      getContactSettings(),
+    ]),
+  ["homepage-data"],
+  {
+    revalidate: 60,
+    tags: ["homepage-data"],
+  }
+);
+
 export default async function Home() {
   const [
     massTimes,
@@ -35,13 +52,7 @@ export default async function Home() {
     homepageEvents,
     liveStream,
     contactInfo,
-  ] = await Promise.all([
-    getPublishedMassTimes(),
-    getHomepageNews(),
-    getHomepageEvents(),
-    getLiveStreamSettings(),
-    getContactSettings(),
-  ])
+  ] = await getHomepageData()
   const liveScheduled = formatLiveSchedule(liveStream.scheduled_at)
   const homepageMasses = massTimes.flatMap((day) =>
   day.services.map((service) => ({

@@ -1,4 +1,4 @@
-import { createClient } from '../supabase/server'
+import { createPublicClient } from '../supabase/public'
 
 export type PublicEventItem = {
   id: string
@@ -15,7 +15,7 @@ export type PublicEventItem = {
 }
 
 export async function getPublishedEvents(): Promise<PublicEventItem[]> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('events')
@@ -36,7 +36,7 @@ export async function getPublishedEvents(): Promise<PublicEventItem[]> {
 export async function getPublishedEventBySlug(
   slug: string
 ): Promise<PublicEventItem | null> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('events')
@@ -55,7 +55,7 @@ export async function getPublishedEventBySlug(
 }
 
 export async function getHomepageEvents(): Promise<PublicEventItem[]> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('events')

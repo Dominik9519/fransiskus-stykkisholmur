@@ -1,4 +1,4 @@
-import { createClient } from '../supabase/server'
+import { createPublicClient } from '../supabase/public'
 
 export type PublicNewsItem = {
   id: string
@@ -12,7 +12,7 @@ export type PublicNewsItem = {
 }
 
 export async function getPublishedNews(): Promise<PublicNewsItem[]> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('news')
@@ -32,7 +32,7 @@ export async function getPublishedNews(): Promise<PublicNewsItem[]> {
 export async function getPublishedNewsBySlug(
   slug: string
 ): Promise<PublicNewsItem | null> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('news')
@@ -51,7 +51,7 @@ export async function getPublishedNewsBySlug(
 }
 
 export async function getHomepageNews(): Promise<PublicNewsItem | null> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('news')

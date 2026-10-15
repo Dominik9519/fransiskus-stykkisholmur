@@ -1,4 +1,4 @@
-import { createClient } from '../supabase/server'
+import { createPublicClient } from '../supabase/public'
 
 export type ContactSettings = {
   id: number
@@ -13,7 +13,7 @@ export type ContactSettings = {
 }
 
 export async function getContactSettings(): Promise<ContactSettings> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('contact_settings')

@@ -1,4 +1,4 @@
-import { createClient } from '../supabase/server'
+import { createPublicClient } from '../supabase/public'
 
 export type MassService = {
   time: string
@@ -13,7 +13,7 @@ export type MassDay = {
 }
 
 export async function getPublishedMassTimes(): Promise<MassDay[]> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data, error } = await supabase
     .from('mass_times')
