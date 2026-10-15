@@ -29,11 +29,19 @@ function SectionArrow() {
 }
 
 export default async function Home() {
-const massTimes = await getPublishedMassTimes()
-  const homepageNews = await getHomepageNews()
-  const homepageEvents = await getHomepageEvents()
-  const liveStream = await getLiveStreamSettings()
-  const contactInfo = await getContactSettings()
+  const [
+    massTimes,
+    homepageNews,
+    homepageEvents,
+    liveStream,
+    contactInfo,
+  ] = await Promise.all([
+    getPublishedMassTimes(),
+    getHomepageNews(),
+    getHomepageEvents(),
+    getLiveStreamSettings(),
+    getContactSettings(),
+  ])
   const liveScheduled = formatLiveSchedule(liveStream.scheduled_at)
   const homepageMasses = massTimes.flatMap((day) =>
   day.services.map((service) => ({
