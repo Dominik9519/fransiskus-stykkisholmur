@@ -1,46 +1,71 @@
 import { MapPin, Clock3, Mail } from "lucide-react"
+import { unstable_cache } from "next/cache"
 import Mark from "./Mark"
+import { getContactSettings } from "../lib/data/contact"
 
-export default function Footer() {
+const getFooterContact = unstable_cache(
+  async () => getContactSettings(),
+  ["footer-contact"],
+  {
+    revalidate: 60,
+    tags: ["homepage-data"],
+  }
+)
+
+export default async function Footer() {
+  const contact = await getFooterContact()
+
+  const mapsUrl =
+    contact.maps_url ||
+    `https://maps.google.com/?q=${encodeURIComponent(
+      `${contact.address}, ${contact.postal_code}`
+    )}`
+
+  const phoneHref = contact.phone.replace(/\s+/g, "")
+
   return (
     <footer id="hafa-samband">
       <div className="footer-main">
         <Mark compact />
 
         <a
-          href="https://maps.google.com/?q=Austurgata+7,+340+Stykkisholmur"
+          href={mapsUrl}
           target="_blank"
           rel="noreferrer"
         >
           <MapPin size={19} />
           <span>
-            Austurgata 7
+            {contact.address}
             <br />
-            340 Stykkishólmur
+            {contact.postal_code}
           </span>
         </a>
 
-        <a href="tel:+3548507576">
+        <a href={`tel:${phoneHref}`}>
           <Clock3 size={19} />
           <span>
-            Rev. Krzysztof Sliwa
+            {contact.priest}
             <br />
-            +354 850 7576
+            {contact.phone}
           </span>
         </a>
 
-        <a href="mailto:sliwcok@gmail.com">
+        <a href={`mailto:${contact.email}`}>
           <Mail size={19} />
-          <span>sliwcok@gmail.com</span>
+          <span>{contact.email}</span>
         </a>
 
-        <a
-          className="social-link"
-          href="https://www.facebook.com/"
-          aria-label="Facebook"
-        >
-          <strong aria-hidden="true">f</strong>
-        </a>
+        {contact.facebook_url && (
+          <a
+            className="social-link"
+            href={contact.facebook_url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook"
+          >
+            <strong aria-hidden="true">f</strong>
+          </a>
+        )}
       </div>
     </footer>
   )
