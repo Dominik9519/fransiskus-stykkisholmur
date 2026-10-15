@@ -2229,3 +2229,157 @@ footer { border-top: 1px solid var(--line); background: #fff; }
     transform: none !important;
   }
 }
+
+
+/* MOTION SYSTEM — PHASE 3 */
+
+
+/* ---------------------------------------------------------
+   Adaptive glass header
+   --------------------------------------------------------- */
+
+.motion-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  transition:
+    background-color .45s cubic-bezier(.16, 1, .3, 1),
+    box-shadow .45s cubic-bezier(.16, 1, .3, 1),
+    backdrop-filter .45s ease,
+    -webkit-backdrop-filter .45s ease;
+}
+
+.motion-site-header.motion-header-scrolled {
+  background-color: rgba(255, 255, 255, .88);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(1.15);
+
+  -webkit-backdrop-filter:
+    blur(18px)
+    saturate(1.15);
+
+  box-shadow:
+    0 1px 0 rgba(24, 29, 36, .06),
+    0 10px 34px rgba(24, 29, 36, .035);
+}
+
+.motion-site-header .brand-logo {
+  transition:
+    transform .55s cubic-bezier(.16, 1, .3, 1),
+    opacity .35s ease;
+}
+
+.motion-site-header.motion-header-scrolled .brand-logo {
+  transform: scale(.94);
+}
+
+
+/* ---------------------------------------------------------
+   Cinematic image reveal
+   --------------------------------------------------------- */
+
+.motion-media {
+  opacity: 0;
+
+  transform:
+    scale(1.012)
+    translateY(5px);
+
+  clip-path:
+    inset(0 0 9% 0 round 8px);
+
+  filter:
+    blur(3px)
+    saturate(.94);
+
+  transition:
+    opacity .8s cubic-bezier(.16, 1, .3, 1),
+    transform 1.15s cubic-bezier(.16, 1, .3, 1),
+    clip-path 1.05s cubic-bezier(.16, 1, .3, 1),
+    filter .9s cubic-bezier(.16, 1, .3, 1);
+}
+
+.motion-media.is-visible {
+  opacity: 1;
+
+  transform:
+    scale(1)
+    translateY(0);
+
+  clip-path:
+    inset(0 0 0 0 round 0);
+
+  filter:
+    blur(0)
+    saturate(1);
+}
+
+
+/* ---------------------------------------------------------
+   Precision CTA interaction
+   --------------------------------------------------------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .motion-magnetic {
+    --magnetic-x: 0px;
+    --magnetic-y: 0px;
+
+    transform:
+      translate3d(
+        var(--magnetic-x),
+        var(--magnetic-y),
+        0
+      );
+
+    transition:
+      transform .45s cubic-bezier(.16, 1, .3, 1),
+      box-shadow .38s ease,
+      background-color .3s ease,
+      border-color .3s ease;
+  }
+
+  .motion-magnetic:hover {
+    transform:
+      translate3d(
+        var(--magnetic-x),
+        calc(var(--magnetic-y) - 2px),
+        0
+      );
+  }
+}
+
+
+/* ---------------------------------------------------------
+   Fine detail — selection
+   --------------------------------------------------------- */
+
+::selection {
+  background: rgba(150, 118, 62, .18);
+}
+
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-media {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    filter: none !important;
+  }
+
+  .motion-magnetic,
+  .motion-magnetic:hover {
+    transform: none !important;
+  }
+
+  .motion-site-header,
+  .motion-site-header .brand-logo {
+    transition: none !important;
+  }
+}

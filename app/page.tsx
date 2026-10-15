@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MotionReveal from "../components/MotionReveal";
 import MotionDepth from "../components/MotionDepth";
+import MotionPolish from "../components/MotionPolish";
 import {
   getHomepageNews,
   formatNewsDate,
@@ -98,6 +99,7 @@ export default async function Home() {
       <Header />
       <MotionReveal />
       <MotionDepth />
+      <MotionPolish />
 
       <main>
 
