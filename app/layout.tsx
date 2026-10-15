@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SiteMotion from "../components/SiteMotion";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stfrancis.is"),
@@ -86,7 +87,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body><SiteMotion />
+        {children}</body>
     </html>
   );
 }
