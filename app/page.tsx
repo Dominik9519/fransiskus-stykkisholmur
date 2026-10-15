@@ -4,6 +4,7 @@ import heroImage from "../public/fransiskus-hero-v4.webp";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MotionReveal from "../components/MotionReveal";
+import MotionDepth from "../components/MotionDepth";
 import {
   getHomepageNews,
   formatNewsDate,
@@ -96,6 +97,7 @@ export default async function Home() {
 
       <Header />
       <MotionReveal />
+      <MotionDepth />
 
       <main>
 
