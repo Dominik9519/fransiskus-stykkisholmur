@@ -1,4 +1,5 @@
 'use client'
+import { refreshHomepageCache } from '../../lib/actions/cache'
 
 import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -188,6 +189,11 @@ export default function NewsManager({
         throw result.error
       }
 
+      try {
+        await refreshHomepageCache()
+      } catch (cacheError) {
+        console.error('Homepage cache refresh failed:', cacheError)
+      }
       setOpen(false)
       setLoading(false)
       router.refresh()
@@ -214,6 +220,11 @@ export default function NewsManager({
       return
     }
 
+    try {
+      await refreshHomepageCache()
+    } catch (cacheError) {
+      console.error('Homepage cache refresh failed:', cacheError)
+    }
     router.refresh()
   }
 

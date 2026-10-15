@@ -1,4 +1,5 @@
 'use client'
+import { refreshHomepageCache } from '../../lib/actions/cache'
 
 import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -86,6 +87,11 @@ export default function ContactManager({
 
       if (error) throw error
 
+      try {
+        await refreshHomepageCache()
+      } catch (cacheError) {
+        console.error('Homepage cache refresh failed:', cacheError)
+      }
       setSaved(true)
       router.refresh()
     } catch (err) {

@@ -1,4 +1,5 @@
 'use client'
+import { refreshHomepageCache } from '../../lib/actions/cache'
 
 import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -103,6 +104,11 @@ export default function MassTimesManager({
       return
     }
 
+    try {
+      await refreshHomepageCache()
+    } catch (cacheError) {
+      console.error('Homepage cache refresh failed:', cacheError)
+    }
     setOpen(false)
     setLoading(false)
     router.refresh()
@@ -127,6 +133,11 @@ export default function MassTimesManager({
       return
     }
 
+    try {
+      await refreshHomepageCache()
+    } catch (cacheError) {
+      console.error('Homepage cache refresh failed:', cacheError)
+    }
     router.refresh()
   }
 
