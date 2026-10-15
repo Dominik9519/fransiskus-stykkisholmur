@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import heroImage from "../public/fransiskus-hero-v4.webp";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import MotionReveal from "../components/MotionReveal";
 import {
   getHomepageNews,
   formatNewsDate,
@@ -94,6 +95,7 @@ export default async function Home() {
       />
 
       <Header />
+      <MotionReveal />
 
       <main>
 
@@ -127,7 +129,9 @@ export default async function Home() {
       </section>
 
       <section className="content-grid" aria-label="Key information">
-<article className="info-card mass-card" id="messur">
+<article className="info-card mass-card" id="messur"
+  data-reveal
+>
   <div className="card-heading">
     <h2>
       <CalendarDays size={20} />
@@ -152,7 +156,10 @@ export default async function Home() {
   </div>
 </article>
 
-<article className="info-card news-card" id="frettir">
+<article className="info-card news-card" id="frettir"
+  data-reveal
+  data-reveal-delay="1"
+>
   <div className="card-heading">
     <h2>
       <svg
@@ -197,7 +204,10 @@ export default async function Home() {
 )}
 </article>
 
-        <article className="info-card events-card" id="vidburdir">
+        <article className="info-card events-card" id="vidburdir"
+  data-reveal
+  data-reveal-delay="2"
+>
   <div className="card-heading">
     <h2>
       <CalendarDays size={20} />
@@ -231,7 +241,10 @@ export default async function Home() {
   </a>
 </article>
 
-        <article className="info-card live-card" id="utsending">
+        <article className="info-card live-card" id="utsending"
+  data-reveal
+  data-reveal-delay="3"
+>
           <div className="card-heading">
             <h2>
               {liveStream.live_now && <span className="live-dot" />}
