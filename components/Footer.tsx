@@ -67,6 +67,10 @@ export default async function Footer() {
           </a>
         )}
       </div>
+
+      <div className="footer-legal">
+        <a href="/privacy">Privacy &amp; Cookies</a>
+      </div>
     </footer>
   )
 }

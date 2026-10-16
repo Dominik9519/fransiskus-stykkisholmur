@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
+import LivePlayer from "../../components/LivePlayer"
 import {
   getLiveStreamSettings,
   getYouTubeId,
@@ -42,14 +43,10 @@ export default async function LivePage() {
 
             {liveStream.live_now && youtubeId ? (
               <>
-                <div className="live-player">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
-                    title={liveStream.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
+                <LivePlayer
+                  youtubeId={youtubeId}
+                  title={liveStream.title}
+                />
 
                 <a
                   className="button button-gold live-fullscreen-button"
