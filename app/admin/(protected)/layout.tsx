@@ -63,7 +63,7 @@ if (profile.role === 'superadmin') {
   <a href="/admin/events">Events</a>
   <a href="/admin/live">Live Mass</a>
   <a href="/admin/gallery">Gallery</a>
-  <a href="/admin/parish">Parish Pages</a>
+  <a href="/admin/parish-pages">Parish Pages</a>
   <a href="/admin/contact">Contact</a>
 
   <a href="/admin/security">Security</a>
@@ -75,6 +75,35 @@ if (profile.role === 'superadmin') {
 
         <LogoutButton />
       </aside>
+
+      <header className="admin-mobile-header">
+        <div className="admin-mobile-topline">
+          <a className="admin-mobile-brand" href="/admin">
+            St. Francis Admin
+          </a>
+
+          <LogoutButton />
+        </div>
+
+        <nav
+          className="admin-mobile-nav"
+          aria-label="Admin navigation"
+        >
+          <a href="/admin">Dashboard</a>
+          <a href="/admin/mass-times">Mass Times</a>
+          <a href="/admin/news">News</a>
+          <a href="/admin/events">Events</a>
+          <a href="/admin/live">Live Mass</a>
+          <a href="/admin/gallery">Gallery</a>
+          <a href="/admin/parish-pages">Parish Pages</a>
+          <a href="/admin/contact">Contact</a>
+          <a href="/admin/security">Security</a>
+
+          {profile.role === 'superadmin' && (
+            <a href="/admin/users">Users & Access</a>
+          )}
+        </nav>
+      </header>
 
       <main className="admin-main">{children}</main>
     </div>
